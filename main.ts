@@ -9,6 +9,10 @@ if (line.length < 1 || line.length > 200) {
   throw new Error(`entry must be 1-200 characters, got ${line.length}`);
 }
 
+if (line.includes("\n") || line.includes("\r")) {
+  throw new Error("entry must be a single line");
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", line, "utf8");
 if (readFileSync("/output/entry.txt", "utf8") !== line) {
